@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSR HOMES | Project Details</title>
+    
+    <link rel="icon" href="./logo.png" type="image/png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: { DEFAULT: '#D4AF37', light: '#F3E5AB' },
+                        dark: { 900: '#0a0a0a', 800: '#141414', 200: '#1a1a1a' }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Cinzel', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;600&display=swap');
+        body { background-color: #0a0a0a; color: #ffffff; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .glow-blob { position: absolute; border-radius: 50%; filter: blur(120px); z-index: 0; pointer-events: none; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col relative overflow-x-hidden">
+
+    <!-- Ambient Lights -->
+    <div class="glow-blob bg-gold w-[600px] h-[600px] top-[-200px] left-[-200px] opacity-20"></div>
+
+    <!-- Simple Nav -->
+    <nav class="fixed w-full z-50 glass border-b border-white/5 transition-all duration-300">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3 group">
+                <img src="./logo.png" alt="DSR Homes Logo" class="h-12 w-auto group-hover:scale-105 transition-transform duration-300">
+                <span class="font-heading font-bold text-xl tracking-widest text-gold hidden sm:block">DSR HOMES</span>
+            </a>
+            <a href="index.html#projects" class="text-sm font-bold uppercase tracking-widest hover:text-gold transition flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Back to Projects
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow pt-32 pb-20 relative z-10">
+        <div class="container mx-auto px-6">
+            
+            <!-- Loading State -->
+            <div id="loading" class="text-center py-32">
+                <svg class="w-12 h-12 mx-auto animate-spin text-gold mb-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                <h2 class="text-2xl font-heading text-gray-400">Loading Project Details...</h2>
+            </div>
+
+            <!-- Error State -->
+            <div id="error" class="hidden text-center py-32">
+                <h2 class="text-4xl font-heading font-bold text-red-500 mb-4">Project Not Found</h2>
+                <p class="text-gray-400 mb-8">The project you are looking for might have been removed or the link is invalid.</p>
+                <a href="index.html#projects" class="inline-block bg-gold text-dark-900 font-bold px-8 py-3 rounded-full hover:bg-white transition shadow-[0_0_20px_rgba(212,175,55,0.4)]">View All Projects</a>
+            </div>
+
+            <!-- Project Content -->
+            <div id="project-content" class="hidden max-w-5xl mx-auto">
+                <h1 id="p-title" class="text-4xl md:text-6xl font-heading font-black mb-6 leading-tight"></h1>
+                <p id="p-desc" class="text-lg md:text-xl text-gray-400 mb-12 leading-relaxed max-w-3xl whitespace-pre-wrap"></p>
+                
+                <div class="rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-gold/20 relative group">
+                    <img id="p-image" src="" alt="Project Image" class="w-full h-auto max-h-[80vh] object-cover transition duration-700 group-hover:scale-[1.02]">
+                </div>
+                
+                <div class="mt-16 text-center">
+                    <a href="index.html#contact" class="inline-block bg-gold text-dark-900 font-bold uppercase tracking-widest px-10 py-4 rounded-full hover:bg-white transition hover:shadow-[0_0_30px_rgba(212,175,55,0.6)] text-sm">
+                        Request a Similar Design
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark-200 border-t border-white/5 py-8 mt-auto relative z-10">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-gray-500 text-sm">&copy; 2026 DSR HOMES. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Firebase Dynamic Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBLr9kkI2XDiq6MhsQ9zZ80M7qk6guLf5g",
+            authDomain: "dsrhomes-4ef5e.firebaseapp.com",
+            projectId: "dsrhomes-4ef5e",
+            storageBucket: "dsrhomes-4ef5e.firebasestorage.app",
+            messagingSenderId: "571918175176",
+            appId: "1:571918175176:web:09a30ab1429672d2664efd"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Get Project ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const projectId = urlParams.get('id');
+
+        const loadingDiv = document.getElementById('loading');
+        const errorDiv = document.getElementById('error');
+        const contentDiv = document.getElementById('project-content');
+
+        async function fetchProject() {
+            if (!projectId) {
+                showError();
+                return;
+            }
+
+            try {
+                const docRef = doc(db, "projects", projectId);
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    
+                    document.title = `DSR HOMES | ${data.title}`;
+                    document.getElementById('p-title').textContent = data.title;
+                    document.getElementById('p-image').src = data.imageUrl;
+                    document.getElementById('p-image').alt = `DSR Homes - ${data.title}`;
+
+                    const descEl = document.getElementById('p-desc');
+                    if (data.description && data.description.trim() !== "") {
+                        descEl.textContent = data.description;
+                        descEl.classList.remove('hidden');
+                    } else {
+                        descEl.classList.add('hidden');
+                    }
+
+                    loadingDiv.classList.add('hidden');
+                    contentDiv.classList.remove('hidden');
+                    
+                    // Simple fade-in animation for content
+                    contentDiv.animate([
+                        { opacity: 0, transform: 'translateY(20px)' },
+                        { opacity: 1, transform: 'translateY(0)' }
+                    ], { duration: 800, easing: 'ease-out' });
+
+                } else {
+                    showError();
+                }
+            } catch (error) {
+                console.error("Error fetching document:", error);
+                showError();
+            }
+        }
+
+        function showError() {
+            loadingDiv.classList.add('hidden');
+            errorDiv.classList.remove('hidden');
+        }
+
+        fetchProject();
+    </script>
+</body>
+</html>
