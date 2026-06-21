@@ -76,9 +76,9 @@
                         <textarea id="project-desc" rows="3" class="w-full bg-dark-900/80 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold placeholder-gray-600" placeholder="A brief description of this project..."></textarea>
                     </div>
                     <div>
-                        <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">Project Image</label>
-                        <input type="file" id="project-image" accept="image/*" class="w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-gold/10 file:text-gold hover:file:bg-gold/20">
-                        <p id="image-hint" class="text-xs text-gray-500 mt-2">Required for new projects. Will be compressed to WebP.</p>
+                        <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">Project Images (Up to 5)</label>
+                        <input type="file" id="project-image" accept="image/*" multiple max="5" class="w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-gold/10 file:text-gold hover:file:bg-gold/20">
+                        <p id="image-hint" class="text-xs text-gray-500 mt-2">1st image will be the Cover. Max 5 images. Will be compressed to WebP.</p>
                     </div>
                     <div class="flex gap-2">
                         <button type="submit" id="submit-btn" class="w-full bg-gold text-dark-900 font-bold py-3 rounded-xl hover:shadow-[0_0_15px_rgba(212,175,55,0.5)] transition flex justify-center items-center">
@@ -142,6 +142,7 @@
         
         let editingProjectId = null;
         let existingImageUrl = null;
+        let existingGalleryUrls = [];
 
         // Auth State Listener
         onAuthStateChanged(auth, (user) => {
@@ -175,12 +176,13 @@
         cancelEditBtn.addEventListener('click', () => {
             editingProjectId = null;
             existingImageUrl = null;
+            existingGalleryUrls = [];
             uploadForm.reset();
             formHeader.textContent = "Add New Project";
             submitBtn.textContent = "Upload Project";
             cancelEditBtn.classList.add('hidden');
             document.getElementById('project-image').required = true;
-            imageHint.textContent = "Required for new projects. Will be compressed to WebP.";
+            imageHint.textContent = "1st image will be the Cover. Max 5 images. Will be compressed to WebP.";
         });
 
         // Upload or Update Project
@@ -188,11 +190,15 @@
             e.preventDefault();
             const title = document.getElementById('project-title').value;
             const desc = document.getElementById('project-desc').value;
-            const imageFile = document.getElementById('project-image').files[0];
+            const imageFiles = document.getElementById('project-image').files;
 
             if (!title) return;
-            if (!editingProjectId && !imageFile) {
-                alert("Please select an image for the new project.");
+            if (!editingProjectId && imageFiles.length === 0) {
+                alert("Please select at least 1 image for the new project.");
+                return;
+            }
+            if (imageFiles.length > 5) {
+                alert("You can only select up to 5 images.");
                 return;
             }
 
@@ -202,28 +208,35 @@
                 uploadStatus.className = 'text-sm font-semibold mt-2 text-center text-gold';
                 
                 let imageUrl = existingImageUrl;
+                let galleryUrls = existingGalleryUrls;
 
-                if (imageFile) {
-                    uploadStatus.textContent = "Compressing image...";
-                    const options = {
-                        maxSizeMB: 0.5,
-                        maxWidthOrHeight: 1200,
-                        useWebWorker: true,
-                        fileType: 'image/webp'
-                    };
-                    const compressedFile = await imageCompression(imageFile, options);
+                if (imageFiles.length > 0) {
+                    let uploadedUrls = [];
+                    for (let i = 0; i < imageFiles.length; i++) {
+                        uploadStatus.textContent = `Compressing image ${i + 1} of ${imageFiles.length}...`;
+                        const options = {
+                            maxSizeMB: 0.5,
+                            maxWidthOrHeight: 1200,
+                            useWebWorker: true,
+                            fileType: 'image/webp'
+                        };
+                        const compressedFile = await imageCompression(imageFiles[i], options);
 
-                    uploadStatus.textContent = "Uploading to ImgBB...";
-                    const formData = new FormData();
-                    formData.append('image', compressedFile);
+                        uploadStatus.textContent = `Uploading image ${i + 1} of ${imageFiles.length}...`;
+                        const formData = new FormData();
+                        formData.append('image', compressedFile);
 
-                    const imgbbRes = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
-                        method: 'POST',
-                        body: formData
-                    });
-                    const imgbbData = await imgbbRes.json();
-                    if (!imgbbData.success) throw new Error("ImgBB Upload Failed");
-                    imageUrl = imgbbData.data.url;
+                        const imgbbRes = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+                            method: 'POST',
+                            body: formData
+                        });
+                        const imgbbData = await imgbbRes.json();
+                        if (!imgbbData.success) throw new Error("ImgBB Upload Failed for image " + (i+1));
+                        
+                        uploadedUrls.push(imgbbData.data.url);
+                    }
+                    imageUrl = uploadedUrls[0]; // 1st is cover
+                    galleryUrls = uploadedUrls.slice(1); // rest is gallery
                 }
 
                 uploadStatus.textContent = "Saving to database...";
@@ -233,6 +246,7 @@
                         title: title,
                         description: desc,
                         imageUrl: imageUrl,
+                        galleryUrls: galleryUrls,
                         updatedAt: serverTimestamp()
                     });
                     uploadStatus.textContent = "Project updated successfully!";
@@ -241,6 +255,7 @@
                         title: title,
                         description: desc,
                         imageUrl: imageUrl,
+                        galleryUrls: galleryUrls,
                         createdAt: serverTimestamp()
                     });
                     uploadStatus.textContent = "Project added successfully!";
@@ -305,6 +320,7 @@
                             const data = docSnap.data();
                             editingProjectId = id;
                             existingImageUrl = data.imageUrl;
+                            existingGalleryUrls = data.galleryUrls || [];
                             
                             document.getElementById('project-title').value = data.title || "";
                             document.getElementById('project-desc').value = data.description || "";
@@ -313,7 +329,7 @@
                             formHeader.textContent = "Edit Project";
                             submitBtn.textContent = "Update Project";
                             cancelEditBtn.classList.remove('hidden');
-                            imageHint.textContent = "Leave file input empty to keep existing image.";
+                            imageHint.textContent = "Leave empty to keep existing images. Uploading new images will replace ALL previous images.";
                             
                             window.scrollTo({top: 0, behavior: 'smooth'});
                         }
