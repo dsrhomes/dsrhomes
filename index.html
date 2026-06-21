@@ -456,33 +456,41 @@
                 
                 <!-- Formspree Form -->
                 <div class="lg:w-1/2 w-full" data-aos="fade-left">
-                    <form action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST" class="glass p-10 md:p-12 rounded-3xl border border-gold/20 shadow-2xl relative">
+                    <form id="contact-form" class="glass p-10 md:p-12 rounded-3xl border border-gold/20 shadow-2xl relative">
                         <div class="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent rounded-3xl pointer-events-none"></div>
                         
                         <h3 class="text-3xl font-heading font-bold mb-8 text-white relative z-10">Send an Inquiry</h3>
+
+                        <!-- Formspree Status Messages -->
+                        <div data-fs-success class="mb-4 text-green-400 font-bold relative z-10"></div>
+                        <div data-fs-error class="mb-4 text-red-400 font-bold relative z-10"></div>
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 relative z-10">
                             <div>
                                 <label for="name" class="block text-xs font-bold tracking-widest uppercase text-gray-400 mb-2">Full Name</label>
-                                <input type="text" id="name" name="name" required class="w-full bg-dark-900/80 border border-gray-700 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition">
+                                <input type="text" id="name" name="name" required data-fs-field class="w-full bg-dark-900/80 border border-gray-700 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition">
+                                <span data-fs-error="name" class="text-xs text-red-400 mt-1 block"></span>
                             </div>
                             <div>
                                 <label for="phone" class="block text-xs font-bold tracking-widest uppercase text-gray-400 mb-2">Phone Number</label>
-                                <input type="tel" id="phone" name="phone" class="w-full bg-dark-900/80 border border-gray-700 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition">
+                                <input type="tel" id="phone" name="phone" data-fs-field class="w-full bg-dark-900/80 border border-gray-700 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition">
+                                <span data-fs-error="phone" class="text-xs text-red-400 mt-1 block"></span>
                             </div>
                         </div>
                         
                         <div class="mb-6 relative z-10">
                             <label for="email" class="block text-xs font-bold tracking-widest uppercase text-gray-400 mb-2">Email Address</label>
-                            <input type="email" id="email" name="email" required class="w-full bg-dark-900/80 border border-gray-700 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition">
+                            <input type="email" id="email" name="email" required data-fs-field class="w-full bg-dark-900/80 border border-gray-700 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition">
+                            <span data-fs-error="email" class="text-xs text-red-400 mt-1 block"></span>
                         </div>
                         
                         <div class="mb-8 relative z-10">
                             <label for="message" class="block text-xs font-bold tracking-widest uppercase text-gray-400 mb-2">Project Details</label>
-                            <textarea id="message" name="message" rows="4" required class="w-full bg-dark-900/80 border border-gray-700 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition"></textarea>
+                            <textarea id="message" name="message" rows="4" required data-fs-field class="w-full bg-dark-900/80 border border-gray-700 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition"></textarea>
+                            <span data-fs-error="message" class="text-xs text-red-400 mt-1 block"></span>
                         </div>
                         
-                        <button type="submit" class="w-full bg-gradient-to-r from-gold to-gold-light text-dark-900 font-extrabold text-lg py-5 rounded-xl hover:shadow-[0_0_25px_rgba(212,175,55,0.6)] transition-all transform hover:-translate-y-1 relative z-10 uppercase tracking-widest">
+                        <button type="submit" data-fs-submit-btn class="w-full bg-gradient-to-r from-gold to-gold-light text-dark-900 font-extrabold text-lg py-5 rounded-xl hover:shadow-[0_0_25px_rgba(212,175,55,0.6)] transition-all transform hover:-translate-y-1 relative z-10 uppercase tracking-widest disabled:opacity-75 disabled:cursor-not-allowed">
                             Request Consultation
                         </button>
                     </form>
@@ -598,5 +606,12 @@
             }
         });
     </script>
+    
+    <!-- Formspree Integration -->
+    <script>
+      window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
+      formspree('initForm', { formElement: '#contact-form', formId: 'xbdvralo' });
+    </script>
+    <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 </body>
 </html>
