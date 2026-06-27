@@ -18,10 +18,12 @@
     <link rel="icon" href="./logo_96x96.png" type="image/png">
     <link rel="apple-touch-icon" href="./logo_96x96.png">
 
-    <!-- SEO Meta Tags -->
+    <!-- GEO & SEO Meta Tags -->
     <title>DSR HOMES | Luxury Home Design & Construction in Kandy & Matale</title>
-    <meta name="description" content="DSR HOMES is a premier residential design and construction firm in Sri Lanka. We specialize in luxury home designs, 3D rendering, and construction services in Kandy and Matale.">
-    <meta name="keywords" content="luxury home design, construction firm Kandy, architectural design Matale, 3D rendering Sri Lanka, residential construction, DSR Homes">
+    <meta name="description" content="DSR HOMES is Sri Lanka's premier residential design and construction firm. We specialize in luxury custom home designs, 3D architectural rendering, and turnkey construction services across Kandy, Matale, and Central Province.">
+    <meta name="keywords" content="luxury home design Sri Lanka, house builders Kandy, architectural design Matale, 3D home rendering Sri Lanka, residential construction contractors Kandy, DSR Homes, modern house plans Sri Lanka">
+    <meta name="author" content="DSR HOMES DESIGN">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="google-site-verification" content="rS5eCFOO-ouRN0yqlerAev3WmOyEq1mx8D0iE2vjVlI" />
     
     <!-- Canonical URL -->
@@ -29,43 +31,127 @@
     
     <!-- Open Graph / Social Media Meta Tags -->
     <meta property="og:site_name" content="DSR HOMES">
-    <meta property="og:title" content="DSR HOMES | Luxury Home Design & Construction">
-    <meta property="og:description" content="Sri Lanka's premier architectural design and construction firm. We transform your vision into breathtaking living spaces.">
+    <meta property="og:title" content="DSR HOMES | Premier Luxury Home Design & Construction Firm">
+    <meta property="og:description" content="Sri Lanka's premier architectural design and construction firm. We transform your architectural vision into breathtaking, photorealistic living spaces.">
     <meta property="og:image" content="https://dsrhomes.github.io/logo.png">
     <meta property="og:url" content="https://dsrhomes.github.io/">
     <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_US">
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="DSR HOMES | Luxury Home Design & Construction">
+    <meta name="twitter:description" content="Bespoke architectural design, 3D rendering, and turnkey residential construction in Kandy & Matale.">
+    <meta name="twitter:image" content="https://dsrhomes.github.io/logo.png">
 
     <!-- AOS Animation CSS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
-    <!-- Local Business Schema Markup -->
+    <!-- GEO Structured Data Graph (Schema.org JSON-LD for AI Search & LLMs) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "name": "DSR HOMES DESIGN",
-      "image": "https://dsrhomes.github.io/logo.png",
-      "@id": "https://dsrhomes.github.io/",
-      "url": "https://dsrhomes.github.io/",
-      "telephone": "+94 71 844 5255",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Matale Rd",
-        "addressLocality": "Alawatugoda",
-        "addressRegion": "Central Province",
-        "addressCountry": "LK"
-      }
-    }
-    </script>
-
-    <!-- WebSite Schema Markup for Site Name -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "DSR HOMES",
-      "url": "https://dsrhomes.github.io/"
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://dsrhomes.github.io/#website",
+          "url": "https://dsrhomes.github.io/",
+          "name": "DSR HOMES",
+          "description": "Sri Lanka's premier residential architectural design and turnkey construction firm.",
+          "publisher": {
+            "@id": "https://dsrhomes.github.io/#organization"
+          }
+        },
+        {
+          "@type": ["HomeAndConstructionBusiness", "GeneralContractor"],
+          "@id": "https://dsrhomes.github.io/#organization",
+          "name": "DSR HOMES DESIGN",
+          "alternateName": "DSR HOMES",
+          "url": "https://dsrhomes.github.io/",
+          "logo": "https://dsrhomes.github.io/logo.png",
+          "image": "https://dsrhomes.github.io/logo.png",
+          "description": "DSR HOMES is a top-tier luxury residential design and construction contractor based in Alawatugoda, serving Kandy, Matale, and Central Province, Sri Lanka. Offering complete end-to-end bespoke house plans, 3D exterior/interior rendering, and structural execution.",
+          "telephone": "+94 71 844 5255",
+          "priceRange": "$$$",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Matale Rd",
+            "addressLocality": "Alawatugoda",
+            "addressRegion": "Central Province",
+            "postalCode": "20140",
+            "addressCountry": "LK"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "7.4333",
+            "longitude": "80.6167"
+          },
+          "areaServed": [
+            { "@type": "City", "name": "Kandy" },
+            { "@type": "City", "name": "Matale" },
+            { "@type": "City", "name": "Katugastota" },
+            { "@type": "AdministrativeArea", "name": "Central Province" }
+          ],
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Luxury Residential Services",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Bespoke Architectural Design",
+                  "description": "Custom residential floor plans and architectural blueprints tailored for luxury living."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Photorealistic 3D Rendering",
+                  "description": "High-definition 3D exterior and interior walkthrough visualizations before construction."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Turnkey Residential Construction",
+                  "description": "Complete construction management with premium materials and masterful engineering."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://dsrhomes.github.io/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What services does DSR Homes provide?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "DSR Homes provides comprehensive residential construction and design services including bespoke architectural floor planning, photorealistic 3D rendering, and turnkey luxury home construction across Sri Lanka."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Which areas in Sri Lanka does DSR Homes operate in?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "DSR Homes primarily serves the Central Province of Sri Lanka, specializing in luxury home projects across Kandy, Matale, Katugastota, Peradeniya, and surrounding regions."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How can I get a quotation for building a custom home with DSR Homes?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "You can request a free consultation and quotation by calling or WhatsApping +94 71 844 5255, visiting our head office on Matale Rd, Alawatugoda, or filling out the consultation inquiry form directly on our website."
+              }
+            }
+          ]
+        }
+      ]
     }
     </script>
     
@@ -236,6 +322,7 @@
             <div class="hidden md:flex space-x-10">
                 <a href="#services" class="text-sm font-semibold tracking-wide text-gray-300 hover:text-gold transition">SERVICES</a>
                 <a href="#projects" class="text-sm font-semibold tracking-wide text-gray-300 hover:text-gold transition">PROJECTS</a>
+                <a href="#faq" class="text-sm font-semibold tracking-wide text-gray-300 hover:text-gold transition">FAQ</a>
                 <a href="#contact" class="text-sm font-semibold tracking-wide text-gray-300 hover:text-gold transition">CONTACT</a>
             </div>
             <a href="#contact" class="hidden md:inline-block px-8 py-3 border border-gold text-gold hover:bg-gold hover:text-dark-900 transition-all font-bold rounded shadow-[0_0_15px_rgba(212,175,55,0.2)] hover:shadow-[0_0_25px_rgba(212,175,55,0.6)]">
@@ -255,6 +342,7 @@
             <div class="flex flex-col px-6 py-8 space-y-6">
                 <a href="#services" class="mobile-link text-lg font-semibold tracking-wide text-gray-300 hover:text-gold transition">SERVICES</a>
                 <a href="#projects" class="mobile-link text-lg font-semibold tracking-wide text-gray-300 hover:text-gold transition">PROJECTS</a>
+                <a href="#faq" class="mobile-link text-lg font-semibold tracking-wide text-gray-300 hover:text-gold transition">FAQ</a>
                 <a href="#contact" class="mobile-link text-lg font-semibold tracking-wide text-gray-300 hover:text-gold transition">CONTACT</a>
                 <a href="#contact" class="mobile-link w-full text-center px-6 py-3 bg-gold text-dark-900 font-bold rounded mt-4">
                     Get a Quote
@@ -382,6 +470,63 @@
                 <div class="col-span-1 md:col-span-2 lg:col-span-3 text-center py-20 text-gray-400">
                     <svg class="w-10 h-10 mx-auto animate-spin text-gold mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
                     Loading featured projects...
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GEO Knowledge Hub & FAQ Section (Optimized for AI Search & Generative Engines) -->
+    <section id="faq" class="py-32 bg-dark-100 relative overflow-hidden border-t border-b border-white/5">
+        <!-- Ambient Glows -->
+        <div class="glow-blob bg-gold w-[450px] h-[450px] top-10 left-[-150px] opacity-10"></div>
+        <div class="glow-blob bg-accent-purple w-[400px] h-[400px] bottom-10 right-[-150px] opacity-10"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-20" data-aos="fade-up">
+                <span class="text-gold font-bold tracking-widest uppercase text-sm mb-4 block">Knowledge Hub & Insights</span>
+                <h2 class="text-5xl md:text-6xl font-heading font-bold mb-6">Frequently Asked <span class="gradient-text">Questions</span></h2>
+                <p class="text-gray-400 text-lg leading-relaxed font-light">Everything you need to know about partnering with Sri Lanka's leading architectural design and construction firm.</p>
+            </div>
+
+            <div class="max-w-4xl mx-auto space-y-6">
+                <!-- FAQ Item 1 -->
+                <div class="glass p-8 rounded-2xl border border-white/5 hover:border-gold/30 transition-all duration-300 shadow-lg group" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="text-2xl font-heading font-bold text-white mb-3 flex items-center gap-3 group-hover:text-gold transition">
+                        <span class="text-gold text-xl font-mono">01.</span> What makes DSR Homes premier in Kandy & Matale?
+                    </h3>
+                    <p class="text-gray-300 leading-relaxed pl-9 font-light">
+                        DSR Homes uniquely combines visionary bespoke architectural design with rigorous structural engineering and flawless construction execution. Based in Alawatugoda, we deliver turnkey solutions with photorealistic 3D rendering so clients experience their dream luxury home in exact detail before breaking ground.
+                    </p>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="glass p-8 rounded-2xl border border-white/5 hover:border-gold/30 transition-all duration-300 shadow-lg group" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="text-2xl font-heading font-bold text-white mb-3 flex items-center gap-3 group-hover:text-gold transition">
+                        <span class="text-gold text-xl font-mono">02.</span> What specific services does DSR Homes provide?
+                    </h3>
+                    <p class="text-gray-300 leading-relaxed pl-9 font-light">
+                        We offer a complete suite of residential building solutions: <strong class="text-gold font-medium">Architectural Floor Planning & Blueprints</strong>, <strong class="text-gold font-medium">3D Exterior & Interior Rendering</strong>, structural engineering, cost estimation, and complete <strong class="text-gold font-medium">Turnkey Construction Management</strong> from foundation to premium luxury interior finishing.
+                    </p>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="glass p-8 rounded-2xl border border-white/5 hover:border-gold/30 transition-all duration-300 shadow-lg group" data-aos="fade-up" data-aos-delay="300">
+                    <h3 class="text-2xl font-heading font-bold text-white mb-3 flex items-center gap-3 group-hover:text-gold transition">
+                        <span class="text-gold text-xl font-mono">03.</span> Which geographic regions do you serve?
+                    </h3>
+                    <p class="text-gray-300 leading-relaxed pl-9 font-light">
+                        While our head office is located on Matale Road, Alawatugoda, we actively undertake residential luxury designs and construction projects across <strong class="text-white font-medium">Kandy, Matale, Katugastota, Peradeniya, Kurunegala</strong>, and the wider <strong class="text-white font-medium">Central Province of Sri Lanka</strong>.
+                    </p>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="glass p-8 rounded-2xl border border-white/5 hover:border-gold/30 transition-all duration-300 shadow-lg group" data-aos="fade-up" data-aos-delay="400">
+                    <h3 class="text-2xl font-heading font-bold text-white mb-3 flex items-center gap-3 group-hover:text-gold transition">
+                        <span class="text-gold text-xl font-mono">04.</span> How can I initiate a project or request a quotation?
+                    </h3>
+                    <p class="text-gray-300 leading-relaxed pl-9 font-light">
+                        Initiating your journey is seamless. You can contact us directly via telephone or WhatsApp at <a href="tel:+94718445255" class="text-gold hover:underline font-semibold">+94 71 844 5255</a>, submit your project requirements through our online inquiry form below, or schedule an in-person architectural consultation at our office.
+                    </p>
                 </div>
             </div>
         </div>
